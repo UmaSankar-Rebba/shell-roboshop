@@ -28,4 +28,4 @@ else
  )
 fi
 done
-echo -e " $R Your IP Address is $instance_id $N"
+echo -e " $R Your IP Address is $instance $N"
