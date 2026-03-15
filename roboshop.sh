@@ -1,6 +1,8 @@
 #!/bin/bash
 SG_ID="sg-0c2d3e7831a625405"
 AMI_ID="ami-0220d79f3f480ecf5"
+R="\e[31m"
+N="\e[0m"
 
 for instance in "$@"
 do
@@ -26,3 +28,4 @@ else
  )
 fi
 done
+echo -e " $R Your IP Address is $instance_id $N"
