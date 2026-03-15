@@ -27,5 +27,5 @@ else
  --output text
  )
 fi
+echo -e " $R Your IP Address is $IP $N"
 done
-echo -e " $R Your IP Address is $instance $N"
