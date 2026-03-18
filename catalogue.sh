@@ -32,12 +32,12 @@ dnf install nodejs -y
 VALIDATE $? "Installing nodejs"
 
 id roboshop
-if [ $? -ne 0 ]; then{
+if [ $? -ne 0 ]; then {
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
     VALIDATE $? "Creating system user"
 }
 else
-echo -e "$C User already exists skipping $N"
+ echo -e "$C User already exists skipping $N"
 fi
 mkdir -p /app
 VALIDATE $? "creating app directory"
