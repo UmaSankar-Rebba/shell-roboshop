@@ -6,6 +6,8 @@ R="\e[31m"
 G="\e[32m"
 C="\e[36m"
 N="\e[0m"
+SCRIPT_DIR=$PWD
+
 
 if [ $USER_ID -ne 0 ]; then
  echo -e " $R You dont have permission to access this operation $N.$G Please contact sudo Admin $N"
@@ -57,7 +59,7 @@ VALIDATE $? "Unzip the code file"
 npm install
 VALIDATE $? "INstalling dependiens"
 
-cp catalogue.service /etc/systemd/system/catalogue.service
+cp $SCRIPT_DIR catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "Created systemctl service"
 
 systemctl daemon-reload
