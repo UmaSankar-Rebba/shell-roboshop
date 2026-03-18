@@ -7,6 +7,7 @@ G="\e[32m"
 C="\e[36m"
 N="\e[0m"
 SCRIPT_DIR=$PWD
+MONGODB_HOST="mongodb.rebba.online"
 
 
 if [ $USER_ID -ne 0 ]; then
@@ -59,10 +60,15 @@ VALIDATE $? "Unzip the code file"
 npm install
 VALIDATE $? "INstalling dependiens"
 
-cp $SCRIPT_DIR catalogue.service /etc/systemd/system/catalogue.service
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "Created systemctl service"
 
 systemctl daemon-reload
 systemctl enable catalogue 
 systemctl start catalogue
 VALIDATE $? "reload and starting the service"
+
+cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo
+dnf install mongodb-mongosh -y
+
+mongosh --host $MONGODB_HOST </app/db/master-data.js
