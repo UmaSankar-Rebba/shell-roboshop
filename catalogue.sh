@@ -25,13 +25,13 @@ VALIDATE(){
     fi
 }
 
-dnf module disable nodejs -y
+dnf module disable nodejs -y &>>$LOGS_FILES
 VALIDATE $? "Disabling nodejs default version"
 
-dnf module enable nodejs:20 -y
+dnf module enable nodejs:20 -y&>>$LOGS_FILES
 VALIDATE $? "ENABLE NODEJS 20 version"
 
-dnf install nodejs -y
+dnf install nodejs -y&>>$LOGS_FILES
 VALIDATE $? "Installing nodejs"
 
 id roboshop
@@ -45,7 +45,7 @@ fi
 mkdir -p /app
 VALIDATE $? "creating app directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOGS_FILES
 VALIDATE $? "Downloading catalogue code"
 
 cd /app
@@ -54,10 +54,10 @@ VALIDATE $? "Changing directory"
 rm -rf /app/*
 VALIDATE $? "Removing existing data in the folder"
 
-unzip /tmp/catalogue.zip
+unzip /tmp/catalogue.zip &>>$LOGS_FILES
 VALIDATE $? "Unzip the code file"
 
-npm install
+npm install &>>$LOGS_FILES
 VALIDATE $? "INstalling dependiens"
 
 cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
