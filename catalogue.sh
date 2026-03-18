@@ -31,11 +31,33 @@ VALIDATE $? "ENABLE NODEJS 20 version"
 dnf install nodejs -y
 VALIDATE $? "Installing nodejs"
 
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-VALIDATE $? "Creating system user"
-
-mkdir /app 
+id roboshop
+if [ $? -ne 0]; then{
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+    VALIDATE $? "Creating system user"
+}
+else
+echo -e "$C User already exists skipping $N"
+fi
+mkdir -p /app
 VALIDATE $? "creating app directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip
 VALIDATE $? "Downloading catalogue code"
+
+cd /app
+VALIDATE $? "Changing directory"
+
+unzip /tmp/catalogue.zip
+VALIDATE $? "Unzip the code file"
+
+npm install
+VALIDATE $? "INstalling dependiens"
+
+cp catalogue.service /etc/systemd/system/catalogue.service
+VALIDATE $? "Created systemctl service"
+
+systemctl daemon-reload
+systemctl enable catalogue 
+systemctl start catalogue
+VALIDATE $? "reload and starting the service"
