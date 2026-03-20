@@ -46,6 +46,6 @@ VALIDATE $? "installing"
 systemctl daemon-reload
 VALIDATE $? "reloading"
 
-systemctl enable user 
+systemctl enable user
 systemctl start user
 VALIDATE $? "enable and start"
