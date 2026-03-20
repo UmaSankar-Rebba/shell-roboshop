@@ -21,19 +21,19 @@ VALIDATE(){
      echo -e "$G $2 is Success $N" | tee -a $LOGS_FILES
     fi
 }
-dnf module disable redis -y
+dnf module disable redis -y &>>$LOGS_FILES
 VALIDATE $? "disable deafault version of redis"
 
-dnf module enable redis:7 -y
+dnf module enable redis:7 -y &>>$LOGS_FILES
 VALIDATE $? "enable redis 7 version"
 
-dnf install redis -y 
+dnf install redis -y &>>$LOGS_FILES
 VALIDATE $? "install redis "
 
-sed -i 's/127.0.0.1/0.0.0.0/g' -e  '/protected-mode/ c protected--mode on' /etc/redis/redis.conf
+sed -i 's/127.0.0.1/0.0.0.0/g' -e  '/protected-mode/ c protected-mode on' /etc/redis/redis.conf
 
-systemctl enable redis
+systemctl enable redis &>>$LOGS_FILES
 VALIDATE $? "enable redis"
 
-systemctl start redis
+systemctl start redis &>>$LOGS_FILES
 VALIDATE $? "start rediss"
