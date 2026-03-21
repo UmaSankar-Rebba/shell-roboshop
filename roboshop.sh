@@ -5,6 +5,7 @@ ZONE_ID="Z06532621BV9L2WWM6NW4"
 DOMAIN_NAME="rebba.online"
 R="\e[31m"
 N="\e[0m"
+export PATH=$PATH:/usr/local/bin
 
 for instance in "$@"
 do
