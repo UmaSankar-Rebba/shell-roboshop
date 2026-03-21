@@ -37,6 +37,7 @@ if [ $? -ne 0 ]; then {
 }
 else
  echo -e "$C User already exists....! Skipping $N"
+fi
 
 
 mkdir -p /app
