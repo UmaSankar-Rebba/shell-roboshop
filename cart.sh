@@ -42,7 +42,8 @@ mkdir -p /app
 VALIDATE $? "create directory"
 
 curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip
-cd /app 
+cd /app
+rm -rf /app/*
 unzip /tmp/cart.zip
 VALIDATE $? "unzip the copied file"
 
