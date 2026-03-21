@@ -29,10 +29,16 @@ VALIDATE $? "disable and enable node js"
 dnf install nodejs -y
 VALIDATE $? "install nodejs"
 
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-VALIDATE $? "system user"
+id roboshop
+if [ $? -ne 0 ]; then{
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+    VALIDATE $? "system user"
+}
+else
+ echo -e "$C User already added.Skipping $N"
+fi
 
-mkdir /app
+mkdir -p /app
 VALIDATE $? "create directory"
 
 curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip
