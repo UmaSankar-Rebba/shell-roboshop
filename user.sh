@@ -23,16 +23,16 @@ VALIDATE(){
     fi
 }
 
-dnf module disable nodejs -y
-dnf module enable nodejs:20 -y
+dnf module disable nodejs -y &>>$LOGS_FILES
+dnf module enable nodejs:20 -y &>>$LOGS_FILES
 VALIDATE $? "dsable and enable nodejs"
 
-dnf install nodejs -y
+dnf install nodejs -y &>>$LOGS_FILES
 VALIDATE $? "install nodejs"
 
 id roboshop
 if [ $? -ne 0 ]; then {
-    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop&>>$LOGS_FILES
     VALIDATE $? "creating system user"
 }
 else
@@ -43,26 +43,26 @@ fi
 mkdir -p /app
 VALIDATE $? "Creating new folder"
 
-curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip
+curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip &>>$LOGS_FILES
 VALIDATE $? "Downloading the code"
 
 cd /app
 VALIDATE $? "changing to app dir"
 
-rm -rf /app/*
+rm -rf /app/* &>>$LOGS_FILES
 VALIDATE $? "removing the existing files"
 
-unzip /tmp/user.zip
+unzip /tmp/user.zip &>>$LOGS_FILES
 VALIDATE $? "unzipping file"
 
-npm install
+npm install &>>$LOGS_FILES
 VALIDATE $? "installing"
 
 cp $SCRIPT_DIR/user.service /etc/systemd/system/user.service
 
-systemctl daemon-reload
+systemctl daemon-reload &>>$LOGS_FILES
 VALIDATE $? "reloading"
 
-systemctl enable user
-systemctl start user
+systemctl enable user &>>$LOGS_FILES
+systemctl start user &>>$LOGS_FILES
 VALIDATE $? "enable and start"
