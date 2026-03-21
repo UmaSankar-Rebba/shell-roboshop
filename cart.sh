@@ -43,7 +43,8 @@ VALIDATE $? "unzip the copied file"
 npm install
 VALIDATE $? "Installing"
 
-cp /cart.service /etc/systemd/system/cart.service
+cp cart.service /etc/systemd/system/cart.service
+VALIDATE $? "cart.service is copied"
 
 systemctl daemon-reload
 VALIDATE $? "reload the system"
