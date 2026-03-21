@@ -6,6 +6,7 @@ R="\e[31m"
 G="\e[32m"
 C="\e[36m"
 N="\e[0m"
+SCRIPT_DIR=$PWD
 
 if [ $USER_ID -ne 0 ]; then
  echo -e " $R You dont have permission to access this operation $N.$G Please contact sudo Admin $N"
@@ -50,7 +51,7 @@ VALIDATE $? "unzip the copied file"
 npm install
 VALIDATE $? "Installing"
 
-cp cart.service /etc/systemd/system/cart.service
+cp $SCRIPT_DIR/cart.service /etc/systemd/system/cart.service
 VALIDATE $? "cart.service is copied"
 
 systemctl daemon-reload
