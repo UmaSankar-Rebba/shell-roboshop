@@ -31,6 +31,5 @@ VALIDATE $? "enabled mysqld"
 systemctl start mysqld
 VALIDATE $? "start mysqld"
 
-echo "Please enter your password"
-read password
-mysql_secure_installation --set-root-pass $password
+mysql_secure_installation --set-root-pass Roboshop@1
+VALIDATE $? "password updated"
