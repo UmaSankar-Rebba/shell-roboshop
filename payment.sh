@@ -39,7 +39,7 @@ fi
 mkdir -p /app
 VALIDATE $? "Dir created"
 
-curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>>$LOGS_FILES
+curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip &>>$LOGS_FILES
 VALIDATE $? "Downloading the source code"
 
 cd /app
