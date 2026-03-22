@@ -5,7 +5,7 @@ LOGS_FILES="/var/log/shell-roboshop/$0.log"
 R="\e[31m"
 G="\e[32m"
 C="\e[36m"
-N="\e[0m"
+N="\e[0m"   
 
 if [ $USER_ID -ne 0 ]; then
  echo -e " $R You dont have permission to access this operation $N.$G Please contact sudo Admin $N"
@@ -27,14 +27,14 @@ VALIDATE $? "Copying mongo repo"
 dnf install mongodb-org -y &>>$LOGS_FILES
 VALIDATE $? "Installing Mongodb"
 
-systemctl enable mongod
+systemctl enable mongod &>>$LOGS_FILES
 VALIDATE $? "Enabling Mongodb"
 
-systemctl start mongod
+systemctl start mongod &>>$LOGS_FILES
 VALIDATE $? "Starting Mongodb"
 
 sed -i "s/127.0.0.1/0.0.0.0/g" /etc/mongod.conf
 VALIDATE $? "Allowing remote connections"
 
-systemctl restart mongod
+systemctl restart mongod &>>$LOGS_FILES
 VALIDATE $? "Restart mongodb"
