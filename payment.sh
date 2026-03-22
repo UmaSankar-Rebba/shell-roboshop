@@ -48,12 +48,10 @@ VALIDATE $? "Change Dir to app"
 rm -rf /app/* &>>$LOGS_FILES
 VALIDATE $? "Removing existing files"
 
-pip3 install -r requirements.txt &>>$LOGS_FILES
-VALIDATE $? "Installing dependencies"
-
 unzip /tmp/payment.zip &>>$LOGS_FILES
 VALIDATE $? "Unipping the code"
 
+cd /app
 pip3 install -r requirements.txt &>>$LOGS_FILES
 VALIDATE $? "Installing dependencies"
 
